@@ -16,7 +16,7 @@ Track Parcels
 
 .. code-block:: php
     
-    // track parcel
+    // track parcel from the last 7 days
     $dateFrom = (new \DateTime())->modify('-7 days');
     $dateTo = new \DateTime();
     
@@ -28,7 +28,6 @@ Parcels Details
 
 .. code-block:: php
     
-    // get parcel details
     $trackId = 'P3L11002';
     $result = $client->parcel->detail($trackId);
 
