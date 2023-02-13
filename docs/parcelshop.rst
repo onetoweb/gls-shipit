@@ -11,22 +11,39 @@ Parcels
     :local:
 
 
-Get Parcel shops by Country
+Get Parcel shops by country
 ```````````````````````````
 
 .. code-block:: php
     
-    $countryCode = 'BE';
+    $countryCode = 'DE';
     $result = $client->parcelshop->getByCountry($countryCode);
 
 
-Parcels Details
+Get Parcel shop
 ```````````````
 
 .. code-block:: php
     
     $parcelShopId = 'GLS_DE-2761234567';
     $result = $client->parcelshop->get($parcelShopId);
+
+
+Get Parcel shops in area
+````````````````````````
+
+.. code-block:: php
+    
+    $result = $client->parcelshop->getParcelShopsInArea([
+        'From' => [
+            'Latitude' => '48.57035',
+            'Longitude' => '12.62896'
+        ],
+        'To' => [
+            'Latitude' => '48.79115',
+            'Longitude' => '9.00543'
+        ],
+    ]);
 
 
 `Back to top <#top>`_

@@ -26,4 +26,14 @@ class Parcelshop extends AbstractEndpoint
     {
         return $this->client->get("/backend/rs/parcelshop/country/$countryCode");
     }
+    
+    /**
+     * @param array $data
+     *
+     * @return array|null
+     */
+    public function getParcelShopsInArea(array $data): ?array
+    {
+        return $this->client->post('/backend/rs/parcelshop/area', $data);
+    }
 }
