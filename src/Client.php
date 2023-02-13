@@ -20,6 +20,7 @@ class Client
     /**
      * Methods.
      */
+    public const METHOD_GET = 'GET';
     public const METHOD_POST = 'POST';
     
     /**
@@ -43,6 +44,21 @@ class Client
     private $requester;
     
     /**
+     * @var Endpoint\EndpointInterface
+     */
+    public $shipment;
+    
+    /**
+     * @var Endpoint\EndpointInterface
+     */
+    public $parcel;
+    
+    /**
+     * @var Endpoint\EndpointInterface
+     */
+    public $parcelshop;
+    
+    /**
      * @param string $username
      * @param string $password
      * @param bool $testModus = false
@@ -64,6 +80,7 @@ class Client
     {
         $this->shipment = new Endpoint\Shipment($this);
         $this->parcel = new Endpoint\Parcel($this);
+        $this->parcelshop = new Endpoint\Parcelshop($this);
     }
     
     /**
@@ -80,6 +97,17 @@ class Client
     public function setRequester(string $requester): void
     {
         $this->requester = $requester;
+    }
+    
+    /**
+     * @param string $endpoint
+     * @param array $query = []
+     *
+     * @return array|null
+     */
+    public function get(string $endpoint, array $query = []): ?array
+    {
+        return $this->request(self::METHOD_GET, $endpoint, [], $query);
     }
     
     /**

@@ -29,3 +29,4 @@ Examples
 
 * `Shipments <shipment.rst>`_
 * `Parcels <parcel.rst>`_
+* `Parcel shops <parcelshop.rst>`_
