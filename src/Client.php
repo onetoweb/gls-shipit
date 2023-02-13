@@ -8,15 +8,10 @@ use GuzzleHttp\Psr7\Response;
 use Onetoweb\Gls\Shipit\Endpoint;
 
 /**
- * Gls Be Api Client.
+ * Gls ShipIT Rest Api Client.
  */
 class Client
 {
-    /**
-     * Base href
-     */
-    public const BASE_HREF = 'https://shipit%s.gls-group.eu:8443';
-    
     /**
      * Methods.
      */
@@ -34,9 +29,9 @@ class Client
     private $password;
     
     /**
-     * @var bool
+     * @var string
      */
-    private $testModus;
+    private $baseHref;
     
     /**
      * @var string
@@ -61,13 +56,13 @@ class Client
     /**
      * @param string $username
      * @param string $password
-     * @param bool $testModus = false
+     * @param string $baseHref
      */
-    public function __construct(string $username, string $password, bool $testModus = false)
+    public function __construct(string $username, string $password, string $baseHref)
     {
         $this->username = $username;
         $this->password = $password;
-        $this->testModus = $testModus;
+        $this->baseHref = $baseHref;
         
         // load endpoints
         $this->loadEndpoints();
@@ -81,14 +76,6 @@ class Client
         $this->shipment = new Endpoint\Shipment($this);
         $this->parcel = new Endpoint\Parcel($this);
         $this->parcelshop = new Endpoint\Parcelshop($this);
-    }
-    
-    /**
-     * @return string
-     */
-    public function getBaseHref(): string
-    {
-        return sprintf(self::BASE_HREF, ($this->testModus ? '-wbm-test01' : ''));
     }
     
     /**
@@ -184,7 +171,7 @@ class Client
         }
         
         // make request
-        $response = (new GuzzleCLient())->request($method, $this->getBaseHref().$endpoint, $options);
+        $response = (new GuzzleCLient())->request($method, $this->baseHref.$endpoint, $options);
         
         // handle errors
         if ($response->getStatusCode() !== 200) {
