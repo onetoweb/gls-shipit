@@ -32,8 +32,28 @@ class Parcelshop extends AbstractEndpoint
      *
      * @return array|null
      */
-    public function getParcelShopsInArea(array $data): ?array
+    public function getInArea(array $data): ?array
     {
         return $this->client->post('/backend/rs/parcelshop/area', $data);
+    }
+    
+    /**
+     * @param array $data
+     *
+     * @return array|null
+     */
+    public function findNearestForAddress(array $data): ?array
+    {
+        return $this->client->post('/backend/rs/parcelshop/address', $data);
+    }
+    
+    /**
+     * @param array $data
+     *
+     * @return array|null
+     */
+    public function getInDistance(array $data): ?array
+    {
+        return $this->client->post('/backend/rs/parcelshop/distance', $data);
     }
 }
