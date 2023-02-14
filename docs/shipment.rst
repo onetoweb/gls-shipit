@@ -63,4 +63,49 @@ Create Shipment
     $result = \Oneoweb\Gls\Shipit\Utils::writeLabel($filename, $data);
 
 
+Cancel Shipment
+```````````````
+
+.. code-block:: php
+    
+    $trackId = 'YZ8YPH2Q';
+    $result = $client->shipment->cancel($trackId);    
+
+
+Get allowed services
+````````````````````
+
+.. code-block:: php
+    
+    $result = $client->shipment->getAllowedServices([
+        'Source' => [
+            'CountryCode' => 'DE',
+            'ZIPCode' => '38106'
+        ],
+        'Destination' => [
+            'CountryCode' => 'DE',
+            'ZIPCode' => '65779'
+        ]
+    ]);
+
+
+Get end of day report
+`````````````````````
+
+.. code-block:: php
+    
+    $date = new \DateTime();
+    $result = $client->shipment->getEndOfDayReport($date);
+
+
+Update parcel weight
+````````````````````
+
+.. code-block:: php
+    
+    $trackId = 'YZ8YPH2Q';
+    $weight = 3.14;
+    $result = $client->shipment->updateParcelWeight($trackId, $weight);
+
+
 `Back to top <#top>`_

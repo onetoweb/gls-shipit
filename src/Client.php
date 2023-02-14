@@ -106,12 +106,13 @@ class Client
     /**
      * @param string $endpoint
      * @param array $data = []
+     * @param array $query = []
      * 
      * @return array|null
      */
-    public function post(string $endpoint, array $data = []): ?array
+    public function post(string $endpoint, array $data = [], array $query = []): ?array
     {
-        return $this->request(self::METHOD_POST, $endpoint, $data);
+        return $this->request(self::METHOD_POST, $endpoint, $data, $query);
     }
     
     /**
