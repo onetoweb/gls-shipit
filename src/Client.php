@@ -138,7 +138,7 @@ class Client
             }
         }
         
-        if (count($error) > 0) {
+        if (count($error) == 0) {
             
             $error['code'] = $response->getStatusCode();
             $error['message'] = $response->getReasonPhrase();
