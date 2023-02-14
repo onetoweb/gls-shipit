@@ -54,6 +54,11 @@ class Client
     public $parcelshop;
     
     /**
+     * @var Endpoint\EndpointInterface
+     */
+    public $timeframe;
+    
+    /**
      * @param string $username
      * @param string $password
      * @param string $baseHref
@@ -76,6 +81,7 @@ class Client
         $this->shipment = new Endpoint\Shipment($this);
         $this->parcel = new Endpoint\Parcel($this);
         $this->parcelshop = new Endpoint\Parcelshop($this);
+        $this->timeframe = new Endpoint\Timeframe($this);
     }
     
     /**
