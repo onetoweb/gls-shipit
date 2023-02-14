@@ -32,4 +32,13 @@ Parcels Details
     $result = $client->parcel->detail($trackId);
 
 
+Get proof of delivery
+`````````````````````
+
+.. code-block:: php
+    
+    $trackId = 'P3L11002';
+    $result = $client->parcel->getProofOfDelivery($trackId);
+
+
 `Back to top <#top>`_

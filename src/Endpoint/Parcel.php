@@ -24,14 +24,26 @@ class Parcel extends AbstractEndpoint
     }
     
     /**
-     * @param string $trackID
-     *
+     * @param string $trackId
+     * 
      * @return array|null
      */
-    public function details(string $trackID): ?array
+    public function details(string $trackId): ?array
     {
         return $this->client->post('/backend/rs/tracking/parceldetails', [
-            'TrackID' => $trackID
+            'TrackID' => $trackId
+        ]);
+    }
+    
+    /**
+     * @param string $trackId
+     * 
+     * @return array|null
+     */
+    public function getProofOfDelivery(string $trackId): ?array
+    {
+        return $this->client->post('/backend/rs/tracking/parcelpod', [
+            'TrackID' => $trackId
         ]);
     }
 }

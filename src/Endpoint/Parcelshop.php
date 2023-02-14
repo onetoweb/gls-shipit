@@ -19,7 +19,7 @@ class Parcelshop extends AbstractEndpoint
     
     /**
      * @param string $countryCode
-     *
+     * 
      * @return array|null
      */
     public function getByCountry(string $countryCode): ?array
@@ -29,7 +29,7 @@ class Parcelshop extends AbstractEndpoint
     
     /**
      * @param array $data
-     *
+     * 
      * @return array|null
      */
     public function getInArea(array $data): ?array
@@ -39,7 +39,7 @@ class Parcelshop extends AbstractEndpoint
     
     /**
      * @param array $data
-     *
+     * 
      * @return array|null
      */
     public function findNearestForAddress(array $data): ?array
@@ -49,7 +49,7 @@ class Parcelshop extends AbstractEndpoint
     
     /**
      * @param array $data
-     *
+     * 
      * @return array|null
      */
     public function getInDistance(array $data): ?array
