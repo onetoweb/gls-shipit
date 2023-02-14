@@ -18,7 +18,7 @@ Setup client
     $baseHref = 'base_href';
     
     // setup client
-    $client = new Client($user, $password, baseHref);
+    $client = new Client($user, $password, $baseHref);
     
     // add requester (optional)
     $client->setRequester('Requester');
