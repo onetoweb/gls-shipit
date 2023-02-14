@@ -67,7 +67,7 @@ class Client
     {
         $this->username = $username;
         $this->password = $password;
-        $this->baseHref = $baseHref;
+        $this->baseHref = rtrim($baseHref, '/');
         
         // load endpoints
         $this->loadEndpoints();
