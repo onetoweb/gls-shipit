@@ -17,7 +17,7 @@ Track Parcels
 .. code-block:: php
     
     // track parcel from the last 7 days
-    $dateFrom = (new \DateTime())->modify('-7 days');
+    $dateFrom = new \DateTime('-7 days');
     $dateTo = new \DateTime();
     
     $result = $client->parcel->track($dateFrom, $dateTo);
