@@ -60,7 +60,7 @@ Create Shipment
     $filename = '/path/to/file.pdf';
     $data = $result['CreatedShipment']['PrintData'][0]['Data'];
     
-    $result = \Oneoweb\Gls\Shipit\Utils::writeLabel($filename, $data);
+    $result = \Onetoweb\Gls\Shipit\Utils::writeLabel($filename, $data);
 
 
 Create Multi Collie Shipment
