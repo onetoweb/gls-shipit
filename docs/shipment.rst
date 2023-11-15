@@ -63,6 +63,65 @@ Create Shipment
     $result = \Oneoweb\Gls\Shipit\Utils::writeLabel($filename, $data);
 
 
+Create Multi Collie Shipment
+````````````````````````````
+
+.. code-block:: php
+    
+    // create shipment
+    $result = $client->shipment->create([
+        'Shipment' => [
+            'ShipmentReference' => [
+                'Ref-Unit-1234'
+            ],
+            'Product' => 'PARCEL',
+            'Consignee' => [
+                'ConsigneeID' => '1234567890',
+                'Address' => [
+                    'Name1' => 'Tim Test',
+                    'Name2' => '',
+                    'Name3' => '',
+                    'CountryCode' => 'DE',
+                    'ZIPCode' => '65760',
+                    'City' => 'Testingen',
+                    'Street' => 'Testallee',
+                    'eMail' => 'tim.test@gls.de',
+                    'ContactPerson' => 'Laura Test',
+                    'MobilePhoneNumber' => '004912345678910',
+                    'FixedLinePhonenumber' => '004912345678910'
+                ]
+            ],
+            'Shipper' => [
+                'ContactID' => '2761234567',
+            ],
+            'ShipmentUnit' => [
+                [
+                    'Weight' => 5
+                ], [
+                    'Weight' => 6
+                ]
+            ]
+        ],
+        'PrintingOptions' => [
+            'ReturnLabels' => [
+                'TemplateSet' => 'NONE',
+                'LabelFormat' => 'PDF'
+            ]
+        ]
+    ]);
+    
+    // write labels to file
+    $i = 1;
+    foreach ($result['CreatedShipment']['PrintData'] as $printData) {
+        
+        $filename = "/path/to/file_$i.pdf";
+        
+        $result = \Onetoweb\Gls\Shipit\Utils::writeLabel($filename, $printData['Data']);
+        
+        $i++;
+    }
+
+
 Cancel Shipment
 ```````````````
 
