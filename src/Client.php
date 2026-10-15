@@ -5,7 +5,9 @@ namespace Onetoweb\Gls\Shipit;
 use GuzzleHttp\Client as GuzzleCLient;
 use GuzzleHttp\RequestOptions;
 use GuzzleHttp\Psr7\Response;
+use Onetoweb\Gls\Shipit\Endpoint\EndpointInterface;
 use Onetoweb\Gls\Shipit\Endpoint;
+use Onetoweb\Gls\Shipit\Config\Method;
 
 /**
  * Gls ShipIT Rest Api Client.
@@ -13,62 +15,46 @@ use Onetoweb\Gls\Shipit\Endpoint;
 class Client
 {
     /**
-     * Methods.
-     */
-    public const METHOD_GET = 'GET';
-    public const METHOD_POST = 'POST';
-    
-    /**
      * @var string
      */
-    private $username;
+    private ?string $requester = null;
     
     /**
-     * @var string
+     * @var EndpointInterface
      */
-    private $password;
+    public ?EndpointInterface $shipment = null;
     
     /**
-     * @var string
+     * @var EndpointInterface
      */
-    private $baseHref;
+    public ?EndpointInterface $parcel = null;
     
     /**
-     * @var string
+     * @var EndpointInterface
      */
-    private $requester;
+    public ?EndpointInterface $parcelshop = null;
     
     /**
-     * @var Endpoint\EndpointInterface
+     * @var EndpointInterface
      */
-    public $shipment;
-    
-    /**
-     * @var Endpoint\EndpointInterface
-     */
-    public $parcel;
-    
-    /**
-     * @var Endpoint\EndpointInterface
-     */
-    public $parcelshop;
-    
-    /**
-     * @var Endpoint\EndpointInterface
-     */
-    public $timeframe;
+    public ?EndpointInterface $timeframe = null;
     
     /**
      * @param string $username
      * @param string $password
      * @param string $baseHref
      */
-    public function __construct(string $username, string $password, string $baseHref)
-    {
-        $this->username = $username;
-        $this->password = $password;
-        $this->baseHref = rtrim($baseHref, '/');
+    public function __construct(
         
+        #[\SensitiveParameter]
+        private string $username,
+        
+        #[\SensitiveParameter]
+        private string $password,
+        
+        #[\SensitiveParameter]
+        private string $baseHref
+    ) {
         // load endpoints
         $this->loadEndpoints();
     }
@@ -82,6 +68,16 @@ class Client
         $this->parcel = new Endpoint\Parcel($this);
         $this->parcelshop = new Endpoint\Parcelshop($this);
         $this->timeframe = new Endpoint\Timeframe($this);
+    }
+    
+    /**
+     * @param string $endpoint
+     * 
+     * @return string
+     */
+    public function getUrl(string $endpoint): string
+    {
+        return rtrim($this->baseHref, '/') . '/' . ltrim($endpoint, '/');
     }
     
     /**
@@ -100,7 +96,7 @@ class Client
      */
     public function get(string $endpoint, array $query = []): ?array
     {
-        return $this->request(self::METHOD_GET, $endpoint, [], $query);
+        return $this->request(Method::GET, $endpoint, [], $query);
     }
     
     /**
@@ -112,7 +108,7 @@ class Client
      */
     public function post(string $endpoint, array $data = [], array $query = []): ?array
     {
-        return $this->request(self::METHOD_POST, $endpoint, $data, $query);
+        return $this->request(Method::POST, $endpoint, $data, $query);
     }
     
     /**
@@ -148,14 +144,14 @@ class Client
     }
     
     /**
-     * @param string $method
+     * @param Method $method
      * @param string $endpoint
      * @param array $data = []
      * @param array $query = []
      * 
      * @return array|null
      */
-    public function request(string $method, string $endpoint, array $data = [], array $query = []): ?array
+    public function request(Method $method, string $endpoint, array $data = [], array $query = []): ?array
     {
         // build options
         $options = [
@@ -178,7 +174,7 @@ class Client
         }
         
         // make request
-        $response = (new GuzzleCLient())->request($method, $this->baseHref.$endpoint, $options);
+        $response = (new GuzzleCLient())->request($method->value, $this->getUrl($endpoint), $options);
         
         // handle errors
         if ($response->getStatusCode() !== 200) {

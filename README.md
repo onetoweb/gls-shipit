@@ -13,3 +13,7 @@ See [Documentation](docs/index.rst)
 ## Api Documention
 
 See [Api Documention](https://shipit.gls-group.eu/webservices/3_2_9/doxygen/WS-REST-API/index.html)
+
+## Change Log
+
+See [Change Log](CHANGELOG.md)

@@ -17,12 +17,11 @@
         }
     ],
     "require": {
-        "php": ">=7.1.0",
-        "guzzlehttp/guzzle" : "^6.0 || ^7.0",
-        "symfony/polyfill-php80": "^1.23"
+        "php": ">=8.1",
+        "guzzlehttp/guzzle" : "^7.0 || ^8.0"
     },
     "require-dev": {
-        "symfony/error-handler": "^5.1"
+        "symfony/error-handler": "^8.1"
     },
     "autoload": {
         "psr-4": {
